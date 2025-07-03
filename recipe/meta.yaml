@@ -1,5 +1,5 @@
 {% set name = "pyodps" %}
-{% set version = "0.12.3" %}
+{% set version = "0.12.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,14 +7,14 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pyodps-{{ version }}.tar.gz
-  sha256: e1820a1fa152f5d6f07572adadc1a0271431f754da2d710a1b2678daa9ec2e6a
+  sha256: b5fff8b0893ea6e45061e18403c05a4dfbd35e794b95b1910cee3733ba911ac7
 
 build:
   entry_points:
     - pyou = odps_scripts.pyou:main
     - pyodps-pack = odps_scripts.pyodps_pack:main
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   build:
