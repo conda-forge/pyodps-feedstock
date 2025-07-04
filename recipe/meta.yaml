@@ -25,6 +25,8 @@ requirements:
     - pip
     - setuptools <64  # [py<=311]
     - setuptools <70  # [py>311]
+    # yes, wheel is really needed (for python 3.13 at least)
+    - wheel
     - numpy >=2.0.0,<2.3.0
     - cython >=3.0,<3.1  # [not win]
   run:
