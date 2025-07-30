@@ -1,5 +1,5 @@
 {% set name = "pyodps" %}
-{% set version = "0.12.4" %}
+{% set version = "0.12.4.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pyodps-{{ version }}.tar.gz
-  sha256: b5fff8b0893ea6e45061e18403c05a4dfbd35e794b95b1910cee3733ba911ac7
+  sha256: 29fc17786c32fa9635f7a91a371e498d4f8719533c30844d0ed907ce4f31d3bf
 
 build:
   entry_points:
