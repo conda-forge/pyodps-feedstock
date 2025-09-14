@@ -14,7 +14,7 @@ build:
     - pyou = odps_scripts.pyou:main
     - pyodps-pack = odps_scripts.pyodps_pack:main
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   build:
