@@ -1,5 +1,5 @@
 {% set name = "pyodps" %}
-{% set version = "0.12.4.1" %}
+{% set version = "0.12.5" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pyodps-{{ version }}.tar.gz
-  sha256: 29fc17786c32fa9635f7a91a371e498d4f8719533c30844d0ed907ce4f31d3bf
+  sha256: b4727584a4822adc13b20211fcb461236bb0f047692b71f71738f4c4ff1a689f
 
 build:
   entry_points:
@@ -20,8 +20,6 @@ requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cython >=3.0,<3.1                      # [build_platform != target_platform]
-    - numpy >=2.0.0,<2.3.0                   # [build_platform != target_platform]
     - wheel                                  # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
@@ -32,13 +30,11 @@ requirements:
     - setuptools <70  # [py>311]
     # yes, wheel is really needed (for python 3.13 at least)
     - wheel
-    - numpy >=2.0.0,<2.3.0
-    - cython >=3.0,<3.1  # [not win]
   run:
     - python
     - requests >=2.4.0
     - pyarrow >=2.0.0
-    - {{ pin_compatible('numpy') }}
+    - numpy
 
 test:
   imports:
