@@ -1,5 +1,5 @@
 {% set name = "pyodps" %}
-{% set version = "0.12.5" %}
+{% set version = "0.12.5.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,20 +7,23 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pyodps-{{ version }}.tar.gz
-  sha256: b4727584a4822adc13b20211fcb461236bb0f047692b71f71738f4c4ff1a689f
+  sha256: bc06b714af26c3c5882315e6b58b75b93557803d7107a856f20d87d02863a6d3
 
 build:
   entry_points:
     - pyou = odps_scripts.pyou:main
     - pyodps-pack = odps_scripts.pyodps_pack:main
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - wheel                                  # [build_platform != target_platform]
+    - numpy >=2.0.0,<2.3.0                   # [build_platform != target_platform and py<314]
+    - numpy >=2.0.0,<2.4.0                   # [build_platform != target_platform and py>=314]
+    - cython >=3.0,<3.1                      # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
   host:
@@ -30,10 +33,15 @@ requirements:
     - setuptools <70  # [py>311]
     # yes, wheel is really needed (for python 3.13 at least)
     - wheel
+    # allow more recent numpy for python 3.14, since older were not built
+    - numpy >=2.0.0,<2.3.0  # [py<314]
+    - numpy >=2.0.0,<2.4.0  # [py>=314]
+    - cython >=3.0,<3.1  # [not win]
   run:
     - python
     - requests >=2.4.0
     - pyarrow >=2.0.0
+    # not listed but seemingly needed
     - numpy
 
 test:
