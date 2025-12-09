@@ -21,6 +21,8 @@ requirements:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - wheel                                  # [build_platform != target_platform]
+    - numpy >=2.0.0,<2.3.0                   # [build_platform != target_platform]
+    - cython >=3.0,<3.1                      # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
   host:
@@ -30,10 +32,13 @@ requirements:
     - setuptools <70  # [py>311]
     # yes, wheel is really needed (for python 3.13 at least)
     - wheel
+    - numpy >=2.0.0,<2.3.0
+    - cython >=3.0,<3.1  # [not win]
   run:
     - python
     - requests >=2.4.0
     - pyarrow >=2.0.0
+    # not listed but seemingly needed
     - numpy
 
 test:
