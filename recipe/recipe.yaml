@@ -1,0 +1,81 @@
+schema_version: 1
+
+context:
+  name: pyodps
+  version: "0.12.6"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/pyodps-${{ version }}.tar.gz
+  sha256: 76e4f12adb05c90f0858e14a1dbb326c79fa190e6e3f948a2fb256aee98391b6
+
+build:
+  number: 1
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  python:
+    entry_points:
+      - pyou = odps_scripts.pyou:main
+      - pyodps-pack = odps_scripts.pyodps_pack:main
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then: python
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+    - if: build_platform != target_platform
+      then: wheel
+    - if: build_platform != target_platform and match(python, "<3.14")
+      then: numpy >=2.0.0,<2.3.0
+    - if: build_platform != target_platform and match(python, ">=3.14")
+      then: numpy >=2.0.0,<2.4.0
+    - if: build_platform != target_platform
+      then: cython >=3.0,<3.1
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+  host:
+    - python
+    - pip
+    - if: match(python, "<=3.11")
+      then: setuptools <64
+    - if: match(python, ">3.11") and match(python, "<=3.12")
+      then: setuptools <70
+    - if: match(python, ">3.12")
+      then: setuptools <90
+    # yes, wheel is really needed (for python 3.13 at least)
+    - wheel
+    - if: not win
+      then: cython >=3.0,<3.1
+  run:
+    - python
+    - requests >=2.4.0
+    - pyarrow >=2.0.0
+    # not listed but seemingly needed
+    - numpy
+
+tests:
+  - python:
+      imports:
+        - odps
+        - odps_scripts
+  - requirements:
+      run:
+        - pip
+    script:
+      - pip check
+      - pyou --help
+      - pyodps-pack --help
+
+about:
+  summary: ODPS Python SDK and data analysis framework
+  license: MIT AND Apache-2.0
+  license_file: License
+  homepage: http://github.com/aliyun/aliyun-odps-python-sdk
+  repository: http://github.com/aliyun/aliyun-odps-python-sdk
+
+extra:
+  recipe-maintainers:
+    - xylar
