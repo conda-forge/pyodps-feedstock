@@ -13,7 +13,7 @@ source:
   sha256: a1ab2433f0de87d5c9a7cdb7f99687e772be54e82ce2100a89e4b3e5b32b723f
 
 build:
-  number: 0
+  number: 1
   script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   python:
     entry_points:
@@ -27,8 +27,8 @@ requirements:
         - python
         - cross-python_${{ target_platform }}
         - wheel
-    - if: build_platform != target_platform and match(python, "<=3.12")
-      then: cython >=3.0,<3.1
+        - if: match(python, "<=3.12")
+          then: cython >=3.0,<3.1
     - if: build_platform != target_platform and match(python, ">3.12")
       then: cython >=3.1,<3.3
     - ${{ compiler('c') }}
