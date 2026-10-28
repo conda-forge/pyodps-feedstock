@@ -19,6 +19,7 @@ build:
     entry_points:
       - pyou = odps_scripts.pyou:main
       - pyodps-pack = odps_scripts.pyodps_pack:main
+      - pyodpswrapper = odps_scripts.pyodpswrapper.__main__:main
 
 requirements:
   build:
