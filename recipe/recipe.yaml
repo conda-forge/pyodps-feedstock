@@ -11,6 +11,10 @@ package:
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/pyodps-${{ version }}.tar.gz
   sha256: 45d9e8f8ee7f61cfeb4e315058dc3288297642343fc95c9c427910b322afccee
+  patches:
+    # pyodpswrapper imports the Unix-only pwd module at the top level, so it
+    # fails on Windows even for --help
+    - 0001-import-pwd-lazily.patch
 
 build:
   number: 0

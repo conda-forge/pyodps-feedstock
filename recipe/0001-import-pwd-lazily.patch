@@ -1,0 +1,19 @@
+--- a/odps_scripts/pyodpswrapper/__main__.py
++++ b/odps_scripts/pyodpswrapper/__main__.py
+@@ -20,7 +20,6 @@
+ import multiprocessing
+ import os
+ import pickle
+-import pwd
+ import shutil
+ import signal
+ import subprocess
+@@ -91,6 +90,8 @@
+     tempobj.TEMP_ROOT = tempfile.mkdtemp()
+ 
+     if args.user:
++        import pwd  # Unix only
++
+         uid = pwd.getpwnam(args.user).pw_uid
+     else:
+         uid = None
