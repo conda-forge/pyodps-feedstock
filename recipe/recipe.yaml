@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: pyodps
-  version: 0.13.2
+  version: "0.13.3"
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/pyodps-${{ version }}.tar.gz
-  sha256: 7156dd99bdf6b9094bbad18e4a2f827cd235ecb23447f615a760a9697286869c
+  sha256: 45d9e8f8ee7f61cfeb4e315058dc3288297642343fc95c9c427910b322afccee
 
 build:
   number: 0
